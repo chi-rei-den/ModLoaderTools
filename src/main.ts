@@ -10,9 +10,9 @@ async function run()
     const IS_WINDOWS = process.platform === "win32";
     if (IS_WINDOWS)
     {
-      let escapedSolution = `${path.join(__dirname, '..', 'externals', 'SetupModLoader.csproj').replace(/'/g, "''")}`;
+      let escapedSolution = path.join(__dirname, "..", "externals", "ModLoaderTools.csproj").replace(/'/g, "''");
       const dotnetPath = await io.which("dotnet", true);
-      await exec.exec(`"${dotnetPath}"`, ["run", "--project", escapedSolution]);
+      await exec.exec(`"${dotnetPath}"`, ["run", "--project", escapedSolution, core.getInput("command"), core.getInput('path')]);
     }
   }
   catch (error)

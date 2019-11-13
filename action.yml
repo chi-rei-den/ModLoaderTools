@@ -1,6 +1,13 @@
-name: 'SetupModLoader'
-description: 'Setup the tModLoader environment for GitHub Actions.'
+name: 'ModLoaderTools'
+description: 'Tools for building a tModLoader mod with GitHub Actions.'
 author: 'Chireiden'
+inputs:
+  command:
+    description: 'The command to execute. "setup", "build" or "publish" '
+    default: 'setup'
+  path:
+    description: 'The path to mod source.'
+    default: ''
 runs:
   using: 'node12'
   main: 'lib/main.js'

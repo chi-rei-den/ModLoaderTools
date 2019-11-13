@@ -1,15 +1,15 @@
 {
-  "name": "SetupModLoader",
+  "name": "ModLoaderTools",
   "version": "0.0.0",
   "private": true,
-  "description": "Setup the tModLoader environment for GitHub Actions.",
+  "description": "Tools for building a tModLoader mod with GitHub Actions.",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sgkoishi/SetupModLoader.git"
+    "url": "git+https://github.com/chi-rei-den/ModLoaderTools.git"
   },
   "keywords": [
     "actions",
