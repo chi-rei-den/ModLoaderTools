@@ -106,7 +106,7 @@ public static class ModLoaderTools
 
         var props = new Dictionary<string, string>
         {
-            ["displayname"] = buildProps["displayName"],
+            ["displayname"] = buildProps.Get("displayName"),
             ["displaynameclean"] = Regex.Replace(buildProps["displayName"], @"\[c/[0-9A-F]+:([^\]]*)\]", "$1"),
             ["name"] = Path.GetFileName(path.Trim('\\')),
             ["version"] = "v" + buildProps.Get("version", "1.0"),
@@ -116,8 +116,8 @@ public static class ModLoaderTools
             ["steamid64"] = steamid64,
             ["modloaderversion"] = "tModLoader v" + version,
             ["passphrase"] = passphrase,
-            ["modreferences"] = buildProps["modreferences"],
-            ["modside"] = buildProps["side"]
+            ["modreferences"] = buildProps.Get("modreferences"),
+            ["modside"] = buildProps.Get("side")
         };
 
         ServicePointManager.Expect100Continue = false;
@@ -167,7 +167,7 @@ public static class ModLoaderTools
             Console.WriteLine("Download tModLoader Windows to " + fileName);
             ZipFile.ExtractToDirectory(Path.Combine(directory, "tModLoader.zip"), GAME_PATH);
 
-            fileName = Path.Combine(directory, "xnafx40_redist.msi");
+            fileName = Path.Combine(refPath, "xnafx40_redist.msi");
             wc.DownloadFile("https://download.microsoft.com/download/5/3/A/53A804C8-EC78-43CD-A0F0-2FB4D45603D3/xnafx40_redist.msi", fileName);
             Console.WriteLine("Download XNA to " + fileName);
             Process.Start("msiexec", $"/i \"{fileName}\" /quiet").WaitForExit();
