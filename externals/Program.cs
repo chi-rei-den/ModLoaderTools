@@ -47,7 +47,9 @@ public static class ModLoaderTools
                 }
                 case "build":
                 {
-                    Process.Start(Path.Combine(GAME_PATH, "tModLoaderServer.exe"), $"-build \"{Path.Combine(workspace, args[1])}\" -unsafe").WaitForExit();
+                    var build = Process.Start(Path.Combine(GAME_PATH, "tModLoaderServer.exe"), $"-build \"{Path.Combine(workspace, args[1])}\" -unsafe");
+                    build.WaitForExit();
+                    Environment.Exit(build.ExitCode);
                     break;
                 }
                 case "publish":
@@ -204,5 +206,8 @@ public static class ModLoaderTools
                 }
             }
         }
+
+        // Generate tModLoader.targets
+        Process.Start(Path.Combine(GAME_PATH, "tModLoaderServer.exe"), "-build");
     }
 }
