@@ -184,7 +184,7 @@ public static class ModLoaderTools
                 {
                     if (method.ToString() == "Mono.Cecil.AssemblyDefinition ReadAssembly(System.String)")
                     {
-                        assemblyDef = method.Invoke(null, new object[] { Path.Combine(GAME_PATH, "Terraria.exe") });
+                        assemblyDef = method.Invoke(null, new object[] { Path.Combine(GAME_PATH, "tModLoader.exe") });
                         foreach (var resource in assemblyDef.MainModule.Resources)
                         {
                             if (resource.Name.EndsWith(".dll"))
