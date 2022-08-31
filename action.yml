@@ -1,16 +1,35 @@
-name: 'ModLoaderTools'
-description: 'Tools for building a tModLoader mod with GitHub Actions.'
-author: 'Chireiden'
+name: "ModLoaderTools"
+description: "Tools for building a tModLoader mod with GitHub Actions."
+author: "Chireiden"
 inputs:
   command:
-    description: 'The command to execute. "setup", "build" or "publish" '
-    default: 'setup'
+    description: 'The command to execute. "setup", "publish"'
+    default: "setup"
   path:
-    description: 'The path to mod source.'
-    default: ''
+    description: "The path of tModLoader"
+    default: "."
+  mod:
+    description: "The file of the mod (publish only)."
+    default: ""
+  steamid:
+    description: "Author steamid (publish only)."
+    default: ""
+  password:
+    description: "Password (publish only)."
+    default: ""
 runs:
-  using: 'node12'
-  main: 'lib/main.js'
+  using: composite
+  steps:
+    - id: setup
+      name: "Setup tModLoader"
+      shell: pwsh
+      run: |
+        $repo = "tModLoader/tModLoader"
+        $filename = "tModLoader.zip"
+        $url = $(Invoke-WebRequest https://api.github.com/repos/$repo/releases | ConvertFrom-Json)
+        Invoke-WebRequest -Uri $url.assets[1].browser_download_url -OutFile $filename
+        Expand-Archive -Path $filename -DestinationPath $path
+        Rename-Item -Path $(Join-Path -Path $path -ChildPath tMLMod.targets) -NewName tModLoader.targets
 branding:
-  icon: 'arrow-down-circle'  
-  color: 'green'
+  icon: "arrow-down-circle"
+  color: "green"
